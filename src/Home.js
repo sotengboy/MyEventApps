@@ -4,14 +4,19 @@ import {
     StatusBar,
     StyleSheet,
     Text,
-
+    TouchableOpacity,
+    View,
+    Image
   } from 'react-native';
 import Event from './Event';
 class Home extends Component{
-    static navigationOptions= ({navigation}) =>({
-        header: null,
+static navigationOptions= ({navigation}) =>({
+        headerShown: false,
       
   });
+  addEvent = () => {
+    this.props.navigation.navigate("AddEvent");
+}
 constructor(props){
 		super(props);
 		this.state = {
@@ -42,7 +47,17 @@ constructor(props){
       <ScrollView>      
           <Event events={this.state.events} />
       </ScrollView>
-      
+      <View>
+        <TouchableOpacity 
+          style={styles.TouchableOpacityStyle}
+          onPress={this.addEvent}
+        >
+        <Image
+             source={require('../images/plus.png')}
+            style={styles.FloatingButtonStyle}
+          />
+        </TouchableOpacity>
+      </View>
     </>
   );
   }
@@ -52,7 +67,20 @@ const styles = StyleSheet.create({
       fontSize: 36,
       textAlign: "center"
     },
-    
+    TouchableOpacityStyle: {
+      position: 'absolute',
+      width: 50,
+      height: 50,
+      alignItems: 'center',
+      justifyContent: 'center',
+      right: 30,
+      bottom: 30,
+    },
+  
+    FloatingButtonStyle: {
+      width: 50,
+      height: 50,
+    },
   });
 
 export default Home;
