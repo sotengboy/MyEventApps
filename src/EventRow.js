@@ -19,7 +19,6 @@ class EventRow extends Component {
           </View>
             <CountDown
                 until={until}
-                onFinish={() => alert('finished')}
                 onPress={() => alert(event.title)}
                 digitStyle={{backgroundColor: '#C12C0C', marginRight: 20,}}
                 digitTxtStyle={{color: '#fff'}}
