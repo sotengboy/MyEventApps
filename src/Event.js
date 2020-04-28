@@ -24,6 +24,8 @@ const Event = ({event}) => {
                 onFinish={handleFinish}
                 digitStyle={{backgroundColor: '#C12C0C', marginRight: 20,}}
                 digitTxtStyle={{color: '#fff'}}
+                timeLabelStyle={{color: '#000', marginRight: 20}}
+                timeLabels={{d: 'Hari', h: 'Jam', m: 'Menit', s: 'Detik'}}
                 size={20}
             />
             {finish ? (
