@@ -7,19 +7,24 @@
  */
 
 import React  from 'react';
+import {Provider} from 'react-redux';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import Home from './src/Home';
-import AddEvent from './src/AddEvent';
+import TambahEvent from './src/AddEvent';
+import data from './src/redux/data';
 
-const App = createStackNavigator({
-  Home: Home,
-  AddEvent: AddEvent,
-},
-{
-  initialRouteName: 'Home'
+let RootStack = createStackNavigator({
+  Home: {screen: Home},
+  TambahEvent: {screen: TambahEvent}
 });
+let Navigation = createAppContainer(RootStack);
+const App = () => {
+  return (
+    <Provider store={data}>
+      <Navigation />
+    </Provider>
+  );
+};
 
-const AppContainer = createAppContainer(App);
-
-export default AppContainer;
+export default App;

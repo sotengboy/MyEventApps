@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import {connect} from 'react-redux';
 import {
     ScrollView,
     StatusBar,
@@ -9,48 +10,25 @@ import {
     Image
   } from 'react-native';
 import Event from './Event';
-class Home extends Component{
-static navigationOptions= ({navigation}) =>({
-        headerShown: false,
-      
-  });
-  addEvent = () => {
-    this.props.navigation.navigate("AddEvent");
-}
-constructor(props){
-		super(props);
-		this.state = {
-			events: [
-        {
-          id: "1",
-          title: "Event 1",
-          date: "2020-04-11 07:22:00",
-        },
-        {
-          id: "2",
-          title: "Event 2",
-          date: "2020-05-25 23:59:00",
-        },
-        {
-          id: "3",
-          title: "Event 3",
-          date: "2020-06-25 23:59:00",
-        },
-      ]
-    };
-		}
-  render() {
+
+const Home = ({events, navigation}) => { 
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <Text style={styles.h1}>Event Scheduler Apps</Text>
       <ScrollView>      
-          <Event events={this.state.events} />
+      <View style={styles.container}>
+          {events.length ? (
+            events.map((event, i) => <Event event={event} key={i} />)
+          ) : (
+            <Text>Tidak ada Event</Text>
+          )}
+        </View>
       </ScrollView>
       <View>
         <TouchableOpacity 
           style={styles.TouchableOpacityStyle}
-          onPress={this.addEvent}
+          onPress={() => navigation.navigate('TambahEvent')}
         >
         <Image
              source={require('../images/plus.png')}
@@ -61,7 +39,8 @@ constructor(props){
     </>
   );
   }
-}
+
+
 const styles = StyleSheet.create({
     h1: {
       fontSize: 36,
@@ -76,11 +55,23 @@ const styles = StyleSheet.create({
       right: 30,
       bottom: 30,
     },
-  
+    container: {
+      backgroundColor: '#fff'
+    },
     FloatingButtonStyle: {
       width: 50,
       height: 50,
     },
   });
+  Home.navigationOptions = {
+    headerShown: false,
+  };
+  const MapStateToProps = state => ({
+    events: state.events,
 
-export default Home;
+  });
+  
+  export default connect(
+    MapStateToProps,
+    null,
+  )(Home);
