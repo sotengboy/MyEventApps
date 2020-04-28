@@ -59,15 +59,30 @@ const TambahEvent = ({navigation, addEvent}) => {
         ) : null}
       </View>
       <View>
-        <Button title="Simpan" onPress={onSubmit} />
+        <Button title="Tambah Event" onPress={onSubmit} />
       </View>
     </View>
   );
 };
-
-TambahEvent.navigationOptions = {
-  title: 'Tambah Event',
-};
+TambahEvent.navigationOptions = ({navigation}) => ({
+  title:'Buat Event Kamu',
+  headerTitleStyle:{
+    fontSize:20,
+    textAlign: "center",
+  },
+  headerStyle:{
+    backgroundColor:'#4A94FB',
+  },
+  headerTintColor: 'white',
+  headerLeft: () => (
+    <TouchableOpacity                
+      onPress={() => navigation.navigate('Home')}
+    >
+    <Text style={styles.backButton}>{`< Back`}</Text>
+    </TouchableOpacity>
+  ),
+ 
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -88,6 +103,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignSelf: 'center'
   },
+  backButton: {
+    color: '#fff',
+    marginLeft: 10,
+    fontSize: 16
+  }
 });
 
 const MapStateToProps = state => ({
